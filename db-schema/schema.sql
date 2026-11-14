@@ -1,0 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS pgcrypto -- generate random uuid
+--Enums--
+CREATE TYPE user_role AS ENUM ('ADMIN', 'ENUMERATOR', 'ANALYST');
+CREATE TYPE survey_status AS ENUM('DRAFT','PUBLISHED','CLOSED');
+CREATE TYPE question_type AS ENUM('TEXT','NUMBER','SINGLE_CHOICE','MULTI_CHOICE','DATE');
