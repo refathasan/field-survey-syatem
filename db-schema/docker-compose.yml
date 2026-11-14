@@ -1,0 +1,16 @@
+services:
+  survey-db:
+    image: postgres:16-alpine
+    container_name: survey-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: survey_admin
+      POSTGRES_PASSWORD: 473369
+      POSTGRES_DB: survey_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - survey_pgdata:/var/lib/postgresql/data
+
+volumes:
+  survey_pgdata:
