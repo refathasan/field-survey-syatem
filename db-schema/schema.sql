@@ -1,4 +1,4 @@
-CREATE EXTENSION IF NOT EXISTS pgcrypto -- generate random uuid
+CREATE EXTENSION IF NOT EXISTS pgcrypto; -- generate random uuid
 --Enums--
 CREATE TYPE  user_role AS ENUM ('ADMIN', 'ENUMERATOR', 'ANALYST');
 CREATE TYPE  survey_status AS ENUM('DRAFT','PUBLISHED','CLOSED');
@@ -57,3 +57,17 @@ CREATE TABLE IF NOT EXISTS question
     UNIQUE (survey_version_id, code),
     UNIQUE (survey_version_id, position) DEFERRABLE INITIALLY IMMEDIATE
     );
+-- Question option
+
+CREATE TABLE question_option(
+                                id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                                question_id UUID NOT NULL REFERENCES question(id) ON DELETE CASCADE ,
+                                position INT NOT NULL  CHECK ( position>0 ),
+                                value VARCHAR(64) NOT NULL ,
+                                label TEXT NOT NULL,
+                                UNIQUE (question_id,value),
+                                UNIQUE (question_id,position) DEFERRABLE INITIALLY IMMEDIATE
+);
+
+-- Assignment
+
